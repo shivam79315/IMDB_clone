@@ -106,9 +106,9 @@ async function addToFavorites(imdbID) {
   if (!favouritesList.some(m => m.imdbID === imdbID)) {
     favouritesList.push(movie);
     localStorage.setItem("favourites", JSON.stringify(favouritesList));
-    alert(`${movie.Title} is added to your favourites`);
+    showToast(`✅ ${movie.Title} is added to your favourites`, 'info');
   } else {
-    alert(`${movie.Title} is already in your favourites`);
+    showToast(`🔁 ${movie.Title} is already added in your favourites`, 'info');
   }
 }
 
@@ -154,7 +154,7 @@ function removeFav(id) {
   favouritesList = favouritesList.filter(movie => movie.imdbID !== id);
   localStorage.setItem("favourites", JSON.stringify(favouritesList));
   favoritesMovieLoader();
-  alert("Movie removed from your favourites");
+  showToast("✅ Movie removed from your favourites", "info")
 }
 
 function singleMovie() {
@@ -216,4 +216,18 @@ function handleScroll() {
   if (distanceFromBottom <= 300) {
     findMovies(getRandomSearchTerm());
   }
+}
+
+// Toastify fn
+const showToast = (message, classType, ) => {
+  Toastify({
+  text: message,
+  className: classType,
+  gravity: "top",
+  position: "right",
+  style: {
+    color: "#000",
+    backgroundImage: "linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%)",
+  }
+}).showToast();
 }
